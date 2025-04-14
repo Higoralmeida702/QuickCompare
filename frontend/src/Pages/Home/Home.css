@@ -1,0 +1,51 @@
+.container {
+    margin: 100px 130px;
+}
+
+.tituloCard {
+    font-family: 'SFProDisplay';
+    letter-spacing: 5px;
+}
+
+.tituloDestaque {
+    margin-bottom: 50px;
+    font-size: 48px;
+}
+
+.titulosSegundarios {
+    margin-top: 80px;
+    font-size: 28px;
+}
+
+.card-grid {
+    display: grid;
+    gap: 20px;
+    max-width: max-content;
+}
+
+.primeiro-card {
+    grid-template-columns: repeat(8, 1fr);
+}
+
+.segundo-card,
+.terceiro-card {
+    grid-template-columns: repeat(4, 1fr);
+}
+
+.card-item {
+    height: 130px;
+    width: 150px;
+    background-color: red;
+}
+
+.card-sub-item {
+    margin-top: 20px;
+    height: 500px;
+    width: 400px;
+    border-radius: 16px;
+    background-color: blue;
+}
+
+.card-sub-item--terceiro {
+    width: 500px;
+}
