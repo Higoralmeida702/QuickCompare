@@ -1,7 +1,25 @@
+import './DefaultStyles.css'
+import { BrowserRouter, Route, Routes, Link } from 'react-router-dom'
+import Home from './Pages/Home/Index'
+import Comparacao from './Pages/Comparacao/Index'
+import Celular from './Pages/Celular/Index'
+import Notebook from './Pages/Notebook/Index'
+import Tablet from './Pages/Tablet/Index'
+import Navbar from './Components/Navbar/Index'
+
 function App() {
   return (
     <>
-    <h1>Inicialização de projeto</h1>
+      <BrowserRouter>
+      <Navbar/>
+        <Routes>
+          <Route path="/" element={<Home />}></Route>
+          <Route path="/comparacao" element={<Comparacao />}></Route>
+          <Route path="/celular" element={<Celular />}></Route>
+          <Route path="/notebook" element={<Notebook />}></Route>
+          <Route path="/tablet" element={<Tablet />}></Route>
+        </Routes>
+      </BrowserRouter>
     </>
   )
 }
