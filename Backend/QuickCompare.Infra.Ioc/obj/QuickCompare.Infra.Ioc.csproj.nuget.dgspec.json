@@ -1,0 +1,262 @@
+{
+  "format": 1,
+  "restore": {
+    "C:\\Users\\Administrator\\Documents\\Desenvolvimento\\backend\\QuickCompare.Infra.Ioc\\QuickCompare.Infra.Ioc.csproj": {}
+  },
+  "projects": {
+    "C:\\Users\\Administrator\\Documents\\Desenvolvimento\\backend\\QuickCompare.Application\\QuickCompare.Application.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\Administrator\\Documents\\Desenvolvimento\\backend\\QuickCompare.Application\\QuickCompare.Application.csproj",
+        "projectName": "QuickCompare.Application",
+        "projectPath": "C:\\Users\\Administrator\\Documents\\Desenvolvimento\\backend\\QuickCompare.Application\\QuickCompare.Application.csproj",
+        "packagesPath": "C:\\Users\\Administrator\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Administrator\\Documents\\Desenvolvimento\\backend\\QuickCompare.Application\\obj\\",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "C:\\Users\\Administrator\\AppData\\Roaming\\NuGet\\NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "net9.0"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net9.0": {
+            "targetAlias": "net9.0",
+            "projectReferences": {
+              "C:\\Users\\Administrator\\Documents\\Desenvolvimento\\backend\\QuickCompare.Domain\\QuickCompare.Domain.csproj": {
+                "projectPath": "C:\\Users\\Administrator\\Documents\\Desenvolvimento\\backend\\QuickCompare.Domain\\QuickCompare.Domain.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
+        },
+        "SdkAnalysisLevel": "9.0.200"
+      },
+      "frameworks": {
+        "net9.0": {
+          "targetAlias": "net9.0",
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.202/PortableRuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "C:\\Users\\Administrator\\Documents\\Desenvolvimento\\backend\\QuickCompare.Domain\\QuickCompare.Domain.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\Administrator\\Documents\\Desenvolvimento\\backend\\QuickCompare.Domain\\QuickCompare.Domain.csproj",
+        "projectName": "QuickCompare.Domain",
+        "projectPath": "C:\\Users\\Administrator\\Documents\\Desenvolvimento\\backend\\QuickCompare.Domain\\QuickCompare.Domain.csproj",
+        "packagesPath": "C:\\Users\\Administrator\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Administrator\\Documents\\Desenvolvimento\\backend\\QuickCompare.Domain\\obj\\",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "C:\\Users\\Administrator\\AppData\\Roaming\\NuGet\\NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "net9.0"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net9.0": {
+            "targetAlias": "net9.0",
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
+        },
+        "SdkAnalysisLevel": "9.0.200"
+      },
+      "frameworks": {
+        "net9.0": {
+          "targetAlias": "net9.0",
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.202/PortableRuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "C:\\Users\\Administrator\\Documents\\Desenvolvimento\\backend\\QuickCompare.Infra.Data\\QuickCompare.Infra.Data.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\Administrator\\Documents\\Desenvolvimento\\backend\\QuickCompare.Infra.Data\\QuickCompare.Infra.Data.csproj",
+        "projectName": "QuickCompare.Infra.Data",
+        "projectPath": "C:\\Users\\Administrator\\Documents\\Desenvolvimento\\backend\\QuickCompare.Infra.Data\\QuickCompare.Infra.Data.csproj",
+        "packagesPath": "C:\\Users\\Administrator\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Administrator\\Documents\\Desenvolvimento\\backend\\QuickCompare.Infra.Data\\obj\\",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "C:\\Users\\Administrator\\AppData\\Roaming\\NuGet\\NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "net9.0"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net9.0": {
+            "targetAlias": "net9.0",
+            "projectReferences": {
+              "C:\\Users\\Administrator\\Documents\\Desenvolvimento\\backend\\QuickCompare.Domain\\QuickCompare.Domain.csproj": {
+                "projectPath": "C:\\Users\\Administrator\\Documents\\Desenvolvimento\\backend\\QuickCompare.Domain\\QuickCompare.Domain.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
+        },
+        "SdkAnalysisLevel": "9.0.200"
+      },
+      "frameworks": {
+        "net9.0": {
+          "targetAlias": "net9.0",
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.202/PortableRuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "C:\\Users\\Administrator\\Documents\\Desenvolvimento\\backend\\QuickCompare.Infra.Ioc\\QuickCompare.Infra.Ioc.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\Administrator\\Documents\\Desenvolvimento\\backend\\QuickCompare.Infra.Ioc\\QuickCompare.Infra.Ioc.csproj",
+        "projectName": "QuickCompare.Infra.Ioc",
+        "projectPath": "C:\\Users\\Administrator\\Documents\\Desenvolvimento\\backend\\QuickCompare.Infra.Ioc\\QuickCompare.Infra.Ioc.csproj",
+        "packagesPath": "C:\\Users\\Administrator\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Administrator\\Documents\\Desenvolvimento\\backend\\QuickCompare.Infra.Ioc\\obj\\",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "C:\\Users\\Administrator\\AppData\\Roaming\\NuGet\\NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "net9.0"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net9.0": {
+            "targetAlias": "net9.0",
+            "projectReferences": {
+              "C:\\Users\\Administrator\\Documents\\Desenvolvimento\\backend\\QuickCompare.Application\\QuickCompare.Application.csproj": {
+                "projectPath": "C:\\Users\\Administrator\\Documents\\Desenvolvimento\\backend\\QuickCompare.Application\\QuickCompare.Application.csproj"
+              },
+              "C:\\Users\\Administrator\\Documents\\Desenvolvimento\\backend\\QuickCompare.Domain\\QuickCompare.Domain.csproj": {
+                "projectPath": "C:\\Users\\Administrator\\Documents\\Desenvolvimento\\backend\\QuickCompare.Domain\\QuickCompare.Domain.csproj"
+              },
+              "C:\\Users\\Administrator\\Documents\\Desenvolvimento\\backend\\QuickCompare.Infra.Data\\QuickCompare.Infra.Data.csproj": {
+                "projectPath": "C:\\Users\\Administrator\\Documents\\Desenvolvimento\\backend\\QuickCompare.Infra.Data\\QuickCompare.Infra.Data.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
+        },
+        "SdkAnalysisLevel": "9.0.200"
+      },
+      "frameworks": {
+        "net9.0": {
+          "targetAlias": "net9.0",
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.202/PortableRuntimeIdentifierGraph.json"
+        }
+      }
+    }
+  }
+}
