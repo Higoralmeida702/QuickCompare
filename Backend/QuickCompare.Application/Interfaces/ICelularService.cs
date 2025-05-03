@@ -1,0 +1,11 @@
+using QuickCompare.Application.Dto;
+using QuickCompare.Domain.Entity;
+
+namespace QuickCompare.Application.Interfaces
+{
+    public interface ICelularService
+    {
+        Task<CelularEntity> AdicionarCelular(CelularDto celularDto);
+        Task<CelularEntity> ObterCelularPorId(int id);
+    }
+}
