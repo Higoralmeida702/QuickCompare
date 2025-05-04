@@ -47,5 +47,33 @@ namespace QuickCompare.Api.Controller
                 return NotFound(ex.Message);
             }
         }
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeletarCelular(int id)
+        {
+            try
+            {
+                var celularDeletado = await _service.ExcluirCelular(id);
+
+                if (celularDeletado == null)
+                {
+                    return NotFound(new { message = "Celular não encontrado." });
+                }
+
+                return Ok(new { message = "Celular deletado com sucesso.", celular = celularDeletado });
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new { message = "Erro interno ao tentar deletar celular.", error = ex.Message });
+            }
+        }
+
+
+        [HttpGet("todos")]
+        public async Task<ActionResult<IEnumerable<CelularEntity>>> ObterTodos()
+        {
+            var celular = await _service.ObterTodosCelulares();
+            return Ok(celular);
+        }
     }
 }

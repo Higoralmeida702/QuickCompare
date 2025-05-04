@@ -39,9 +39,26 @@ namespace QuickCompare.Application.Services
             return await _repository.AdicionarCelular(celular);
         }
 
+        public async Task<CelularEntity> ExcluirCelular(int id)
+        {
+            var celular = await _repository.ObterCelularPorId(id);
+            if (celular == null)
+            {
+                throw new Exception("Celular não encontrado");
+            }
+
+            await _repository.ExcluirCelular(id);
+            return celular;
+        }
+
         public async Task<CelularEntity> ObterCelularPorId(int id)
         {
             return await _repository.ObterCelularPorId(id);
+        }
+
+        public async Task<List<CelularEntity>> ObterTodosCelulares()
+        {
+            return await _repository.ObterTodosCelulares();
         }
     }
 }

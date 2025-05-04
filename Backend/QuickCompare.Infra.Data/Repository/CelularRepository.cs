@@ -24,10 +24,30 @@ namespace QuickCompare.Infra.Data.Repository
             await _context.SaveChangesAsync();
             return celular;
         }
-        
+
+        public async Task<CelularEntity> ExcluirCelular(int id)
+        {
+            var celular = await _context.Celulares.FindAsync(id);
+
+            if (celular == null)
+            {
+                throw new Exception("Celular não encontrado");
+            }
+
+            _context.Celulares.Remove(celular);
+            await _context.SaveChangesAsync();
+            return celular;
+
+        }
+
         public async Task<CelularEntity> ObterCelularPorId(int id)
         {
             return await _context.Celulares.FindAsync(id);
+        }
+
+        public async Task<List<CelularEntity>> ObterTodosCelulares()
+        {
+            return await _context.Celulares.ToListAsync();
         }
     }
 }

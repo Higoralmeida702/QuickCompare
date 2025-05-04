@@ -6,6 +6,8 @@ namespace QuickCompare.Domain.Interfaces
     {
       Task<CelularEntity> AdicionarCelular (CelularEntity celular);
       Task<CelularEntity> ObterCelularPorId (int id);
+      Task<List<CelularEntity>> ObterTodosCelulares ();
+      Task <CelularEntity> ExcluirCelular (int id);
 
     }
 }
