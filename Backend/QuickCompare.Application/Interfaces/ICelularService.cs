@@ -9,5 +9,6 @@ namespace QuickCompare.Application.Interfaces
         Task<CelularEntity> ObterCelularPorId(int id);
         Task<CelularEntity> ExcluirCelular(int id);
         Task<List<CelularEntity>> ObterTodosCelulares();
+        Task<CelularDto> AtualizarCelular (int id, CelularDto celularDto);
     }
 }

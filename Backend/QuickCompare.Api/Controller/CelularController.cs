@@ -75,5 +75,22 @@ namespace QuickCompare.Api.Controller
             var celular = await _service.ObterTodosCelulares();
             return Ok(celular);
         }
+
+        [HttpPut("{id}")]
+        public async Task<IActionResult> AtualizarCelular(int id, [FromBody] CelularDto celularDto)
+        {
+            if (celularDto == null)
+                return BadRequest("Dados inválidos.");
+
+            try
+            {
+                var celularAtualizado = await _service.AtualizarCelular(id, celularDto);
+                return Ok(celularAtualizado);
+            }
+            catch (Exception ex)
+            {
+                return NotFound(ex.Message);
+            }
+        }
     }
 }

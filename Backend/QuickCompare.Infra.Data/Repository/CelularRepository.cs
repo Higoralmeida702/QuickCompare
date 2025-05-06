@@ -25,6 +25,18 @@ namespace QuickCompare.Infra.Data.Repository
             return celular;
         }
 
+        public async Task<CelularEntity> AtualizarCelular(int id, CelularEntity celular)
+        {
+            var celularExistente = await _context.Celulares.FindAsync(id);
+            if (celularExistente == null)
+            {
+                throw new Exception("Celular não encontrado");
+            }
+            _context.Celulares.Update(celular);
+            await _context.SaveChangesAsync();
+            return celular;
+        }
+
         public async Task<CelularEntity> ExcluirCelular(int id)
         {
             var celular = await _context.Celulares.FindAsync(id);
