@@ -18,23 +18,23 @@ namespace QuickCompare.Application.Services
         public async Task<CelularEntity> AdicionarCelular(CelularDto celularDto)
         {
             var celular = new CelularEntity
-            {
-                Marca = celularDto.Marca,
-                Modelo = celularDto.Modelo,
-                Espessura = celularDto.Espessura,
-                Peso = celularDto.Peso,
-                mAh = celularDto.Mah,
-                DuracaoBateriaAproximada = celularDto.DuracaoAproximadaBateria,
-                CapacidadeArmazenamento = celularDto.CapacidadeArmazenamento,
-                MemoriaRam = celularDto.MemoriaRam,
-                TipoAparelho = celularDto.TipoAparelho,
-                Tela = celularDto.Tela,
-                ExpansaoMicroSd = celularDto.ExpansaoMicroSd,
-                DualSim = celularDto.DualSim,
-                Has5G = celularDto.Has5G,
-                ComprimentoCelular = celularDto.ComprimentoCelular,
-                LarguraCelular = celularDto.LarguraCelular,
-            };
+            (
+                celularDto.Marca,
+                celularDto.Modelo,
+                celularDto.Espessura,
+                celularDto.Peso,
+                celularDto.Mah,
+                celularDto.DuracaoAproximadaBateria,
+                celularDto.CapacidadeArmazenamento,
+                celularDto.MemoriaRam,
+                celularDto.TipoAparelho,
+                celularDto.Tela,
+                celularDto.ExpansaoMicroSd,
+                celularDto.DualSim,
+                celularDto.Has5G,
+                celularDto.ComprimentoCelular,
+                celularDto.LarguraCelular
+            );
 
             return await _repository.AdicionarCelular(celular);
         }
