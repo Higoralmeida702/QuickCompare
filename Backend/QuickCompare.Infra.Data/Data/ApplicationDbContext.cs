@@ -14,6 +14,7 @@ namespace QuickCompare.Infra.Data.Data
         }
 
         public DbSet<CelularEntity> Celulares { get; set; }
+        public DbSet<NotebookEntity> Notebooks { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -21,6 +22,9 @@ namespace QuickCompare.Infra.Data.Data
 
             modelBuilder.Entity<CelularEntity>()
                 .OwnsOne(x => x.Tela);
+
+            modelBuilder.Entity<NotebookEntity>()
+            .OwnsOne(x => x.Tela);
         }
     }
 }
