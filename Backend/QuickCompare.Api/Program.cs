@@ -19,6 +19,8 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 
 builder.Services.AddScoped<ICelularService, CelularService>();
 builder.Services.AddScoped<ICelularRepository, CelularRepository>();
+builder.Services.AddScoped<INotebookService, NotebookService>();
+builder.Services.AddScoped<INotebookRepository, NotebookRepository>();
 
 
 builder.Services.AddEndpointsApiExplorer();
