@@ -21,7 +21,8 @@ builder.Services.AddScoped<ICelularService, CelularService>();
 builder.Services.AddScoped<ICelularRepository, CelularRepository>();
 builder.Services.AddScoped<INotebookService, NotebookService>();
 builder.Services.AddScoped<INotebookRepository, NotebookRepository>();
-
+builder.Services.AddScoped<ICompararCelulares, CompararCelularService>();
+builder.Services.AddScoped<CompararCelularesUseCase>();
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(c =>
