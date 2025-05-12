@@ -1,0 +1,30 @@
+.navbar-nav {
+    margin-top: 30px;
+}
+
+.navbar-list {
+    list-style: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 60px;
+    margin: 0;
+    padding: 0;
+}
+
+.navbar-item {
+    font-weight: 500;
+    font-size: 18px;
+    font-family: 'SFProDisplay', sans-serif;
+    transition: color 0.3s ease;
+
+}
+
+.navbar-item a {
+    text-decoration: none;
+    color: #000;
+}
+
+.navbar-item a:hover {
+    color: #F36960;
+}
