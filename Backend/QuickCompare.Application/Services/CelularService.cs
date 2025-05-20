@@ -1,3 +1,4 @@
+using QuickCompare.Application.Common;
 using QuickCompare.Application.Dto;
 using QuickCompare.Application.Interfaces;
 using QuickCompare.Domain.Entity;
@@ -15,7 +16,7 @@ namespace QuickCompare.Application.Services
             _repository = repository;
         }
 
-        public async Task<CelularEntity> AdicionarCelular(CelularDto celularDto)
+        public async Task<Resposta<CelularEntity>> AdicionarCelular(CelularDto celularDto)
         {
             var celular = new CelularEntity
             (
@@ -36,16 +37,18 @@ namespace QuickCompare.Application.Services
                 celularDto.LarguraCelular
             );
 
-            return await _repository.AdicionarCelular(celular);
+            var resultado = await _repository.AdicionarCelular(celular);
+
+            return RespostaPadrao<CelularEntity>(celular, "Celular criado com sucesso");
         }
 
-        public async Task<CelularDto> AtualizarCelular(int id, CelularDto celularDto)
+        public async Task<Resposta<CelularDto>> AtualizarCelular(int id, CelularDto celularDto)
         {
             var celularExistente = await _repository.ObterCelularPorId(id);
 
             if (celularExistente == null)
             {
-                throw new Exception("Celular não encontrado");
+                return RespostaPadrao<CelularDto>(null, "Celular não encontrado", false);
             }
 
             celularExistente.Update(
@@ -68,7 +71,7 @@ namespace QuickCompare.Application.Services
 
             await _repository.AtualizarCelular(id, celularExistente);
 
-            return new CelularDto
+            var novaInformacoes = new CelularDto
             {
                 Marca = celularExistente.Marca,
                 Modelo = celularExistente.Modelo,
@@ -86,29 +89,50 @@ namespace QuickCompare.Application.Services
                 ComprimentoCelular = celularExistente.ComprimentoCelular,
                 LarguraCelular = celularExistente.LarguraCelular
             };
+            return RespostaPadrao<CelularDto>(novaInformacoes, "Celular atualizado com sucesso");
         }
 
 
-        public async Task<CelularEntity> ExcluirCelular(int id)
+        public async Task<Resposta<CelularEntity>> ExcluirCelular(int id)
         {
             var celular = await _repository.ObterCelularPorId(id);
             if (celular == null)
             {
-                throw new Exception("Celular não encontrado");
+                return RespostaPadrao<CelularEntity>(null, "Celular não encontrado", false);
             }
 
             await _repository.ExcluirCelular(id);
-            return celular;
+            return RespostaPadrao<CelularEntity>(celular, "Celular removido com sucesso");
         }
 
-        public async Task<CelularEntity> ObterCelularPorId(int id)
+        public async Task<Resposta<CelularEntity>> ObterCelularPorId(int id)
         {
-            return await _repository.ObterCelularPorId(id);
+            var celular = await _repository.ObterCelularPorId(id);
+
+            if (celular == null)
+            {
+                return RespostaPadrao<CelularEntity>(null, "Celular não encontrado", false);
+            }
+
+            return RespostaPadrao<CelularEntity>(celular, "Celular encontrado com sucesso");
         }
 
-        public async Task<List<CelularEntity>> ObterTodosCelulares()
+        public async Task<Resposta<List<CelularEntity>>> ObterTodosCelulares()
         {
-            return await _repository.ObterTodosCelulares();
+            var celulares = await _repository.ObterTodosCelulares();
+
+            return RespostaPadrao<List<CelularEntity>>(celulares, "Lista de celulares obtida com sucesso");
+        }
+
+        private static Resposta<T> RespostaPadrao<T>(T? dados, string mensagem, bool status = true)
+        {
+            return new Resposta<T>
+            {
+                Dados = dados,
+                Mensagem = mensagem,
+                Status = status
+            };
+
         }
     }
 }
