@@ -21,7 +21,7 @@ namespace QuickCompare.Api.Controller
         }
 
 
-        [HttpPost]
+        [HttpPost("AdicionarCelular")]
         public async Task<ActionResult<CelularEntity>> AdicionarCelular([FromBody] CelularDto celularDto)
         {
             if (!ModelState.IsValid)
@@ -34,7 +34,7 @@ namespace QuickCompare.Api.Controller
         }
 
 
-        [HttpGet]
+        [HttpGet("BuscarCelularPorId/{id}")]
         public async Task<ActionResult<CelularEntity>> BuscarCelularPorId(int id)
         {
             try
@@ -48,7 +48,7 @@ namespace QuickCompare.Api.Controller
             }
         }
 
-        [HttpDelete("{id}")]
+        [HttpDelete("DeletarCelular/{id}")]
         public async Task<IActionResult> DeletarCelular(int id)
         {
             try
@@ -69,14 +69,14 @@ namespace QuickCompare.Api.Controller
         }
 
 
-        [HttpGet("todos")]
+        [HttpGet("ObterTodosCelulares")]
         public async Task<ActionResult<IEnumerable<CelularEntity>>> ObterTodos()
         {
             var celular = await _service.ObterTodosCelulares();
             return Ok(celular);
         }
 
-        [HttpPut("{id}")]
+        [HttpPut("AtualizarCelular/{id}")]
         public async Task<IActionResult> AtualizarCelular(int id, [FromBody] CelularDto celularDto)
         {
             if (celularDto == null)

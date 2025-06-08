@@ -16,7 +16,7 @@ namespace QuickCompare.Api.Controller
             _service = service;
         }
 
-        [HttpPost]
+        [HttpPost("AdicionarNotebook")]
         public async Task<ActionResult<NotebookEntity>> AdicionarNotebook([FromBody] NotebookDto notebookDto)
         {
             if (!ModelState.IsValid)
@@ -28,7 +28,7 @@ namespace QuickCompare.Api.Controller
             return Ok(created);
         }
 
-        [HttpGet("{id}")]
+        [HttpGet("BuscarNotebookPorId/{id}")]
         public async Task<ActionResult<NotebookEntity>> BuscarNotebookPorId(int id)
         {
             try
@@ -47,7 +47,7 @@ namespace QuickCompare.Api.Controller
             }
         }
 
-        [HttpDelete("{id}")]
+        [HttpDelete("ExcluirNotebook/{id}")]
         public async Task<IActionResult> ExcluirNotebook(int id)
         {
             try
@@ -67,7 +67,7 @@ namespace QuickCompare.Api.Controller
             }
         }
 
-        [HttpPut("{id}")]
+        [HttpPut("AtualizarNotebook/{id}")]
         public async Task<IActionResult> AtualizarNotebook(int id, [FromBody] NotebookDto notebookDto)
         {
             if (notebookDto == null)
@@ -88,6 +88,13 @@ namespace QuickCompare.Api.Controller
             {
                 return StatusCode(500, new { message = "Erro ao atualizar notebook.", error = ex.Message });
             }
+        }
+
+        [HttpGet("ObterTodosNotebooks")]
+        public async Task<ActionResult<IEnumerable<NotebookEntity>>> BuscarTodosNotebooks()
+        {
+            var notebooks = await _service.BuscarTodosNotebooks();
+            return Ok(notebooks);
         }
     }
 }

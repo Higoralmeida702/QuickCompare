@@ -1,3 +1,4 @@
+using QuickCompare.Application.Common;
 using QuickCompare.Application.Dto;
 using QuickCompare.Application.Interfaces;
 using QuickCompare.Domain.Entity;
@@ -14,7 +15,7 @@ namespace QuickCompare.Application.Services
             _repository = repository;
         }
 
-        public async Task<NotebookEntity> AdicionarNotebook(NotebookDto notebookDto)
+        public async Task<Resposta<NotebookEntity>> AdicionarNotebook(NotebookDto notebookDto)
         {
             var notebook = new NotebookEntity
             (
@@ -40,15 +41,16 @@ namespace QuickCompare.Application.Services
                 notebookDto.FrequenciaMemoriaRam
             );
 
-            return await _repository.AdicionarNotebook(notebook);
+            await _repository.AdicionarNotebook(notebook);
+            return RespostaPadrao<NotebookEntity>(notebook, "Notebook adicionado com sucesso");
         }
 
-        public async Task<NotebookDto> AtualizarNotebook(int id, NotebookDto notebookDto)
+        public async Task<Resposta<NotebookDto>> AtualizarNotebook(int id, NotebookDto notebookDto)
         {
             var notebookExistente = await _repository.BuscarNotebookId(id);
             if (notebookExistente == null)
             {
-                throw new Exception("Notebook não encontrado");
+                return RespostaPadrao<NotebookDto>(null, "Notebook não encontrado", false);
             }
 
             notebookExistente.Update
@@ -77,7 +79,7 @@ namespace QuickCompare.Application.Services
 
             await _repository.AtualizarNotebook(id, notebookExistente);
 
-            return new NotebookDto
+            var notebookAtualizado = new NotebookDto
             {
                 Marca = notebookExistente.Marca,
                 Modelo = notebookExistente.Modelo,
@@ -100,21 +102,48 @@ namespace QuickCompare.Application.Services
                 GeracaoMemoriaRam = notebookExistente.GeracaoMemoriaRam,
                 FrequenciaMemoriaRam = notebookExistente.FrequenciaMemoriaRam
             };
+
+            return RespostaPadrao<NotebookDto>(notebookAtualizado, "Informações do notebook atualizadas com sucesso");
         }
 
-        public async Task<NotebookEntity> BuscarNotebookId(int id)
+        public async Task<Resposta<NotebookEntity>> BuscarNotebookId(int id)
         {
-            return await _repository.BuscarNotebookId(id);
+            var notebook = await _repository.BuscarNotebookId(id);
+            if (notebook == null)
+            {
+                return RespostaPadrao<NotebookEntity>(null, "Notebook não localizado", false);
+            }
+
+            return RespostaPadrao<NotebookEntity>(notebook, "Notebook encontrado com sucesso");
         }
 
-        public Task<List<NotebookEntity>> BuscarTodosNotebooks()
+        public async Task<Resposta<List<NotebookEntity>>> BuscarTodosNotebooks()
         {
-            throw new NotImplementedException();
+            var notebook = await _repository.BuscarTodosNotebooks();
+            return RespostaPadrao<List<NotebookEntity>>(notebook, "Lista de notebook obtida com sucesso");
         }
 
-        public Task<NotebookEntity> ExcluirNotebook(int id)
+        public async Task<Resposta<NotebookEntity>> ExcluirNotebook(int id)
         {
-            throw new NotImplementedException();
+            var noteobokId = await _repository.BuscarNotebookId(id);
+
+            if (noteobokId == null)
+            {
+                return RespostaPadrao<NotebookEntity>(null, "Notebook não localizado", false);
+            }
+
+            await _repository.ExcluirNotebook(id);
+            return RespostaPadrao<NotebookEntity>(noteobokId, "Notebook excluido com sucesso");
+        }
+
+        private static Resposta<T> RespostaPadrao<T>(T? dados, string mensagem, bool status = true)
+        {
+            return new Resposta<T>
+            {
+                Dados = dados,
+                Mensagem = mensagem,
+                Status = status
+            };
         }
     }
 }
