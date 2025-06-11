@@ -1,0 +1,60 @@
+.container {
+    font-family: 'SFProDisplay';
+}
+
+.celular-section {
+    display: flex;
+    justify-content: center;
+    padding: 20px;
+    margin-left: 366px;
+}
+
+.celular-lista {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    width: 822px;
+    height: auto;
+}
+
+.celular-lista>div {
+    display: flex;
+    align-items: center;
+    background-color: #f0f0f0;
+    padding: 16px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    gap: 16px;
+}
+
+.celular-lista>div h1,
+.celular-lista>div p {
+    margin: 4px 0;
+}
+
+.celular-imagem {
+    width: 67px;
+    height: 137px;
+    flex-shrink: 0;
+}
+
+.celular-especificacoes {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 60px;
+    margin-top: 20px;
+}
+
+.especificacao-icone {
+    width: 40px;
+    height: 30px;
+}
+
+.especificacoes-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 120px;
+    text-align: center;
+}

@@ -4,7 +4,6 @@ import Home from './Pages/Home/Index'
 import Comparacao from './Pages/Comparacao/Index'
 import Celular from './Pages/Celular/Index'
 import Notebook from './Pages/Notebook/Index'
-import Tablet from './Pages/Tablet/Index'
 import Navbar from './Components/Navbar/Index'
 
 function App() {
