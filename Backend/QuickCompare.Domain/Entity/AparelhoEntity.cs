@@ -17,8 +17,8 @@ namespace QuickCompare.Domain.Entity
         [Required(ErrorMessage = "É obrigatório o preenchimento do campo modelo")]
         public string Modelo { get; private set; }
 
-        public int? Espessura { get; private set; }
-        public int? Peso { get; private set; }
+        public decimal? Espessura { get; private set; }
+        public decimal? Peso { get; private set; }
         public int? Mah { get; private set; }
         public int? DuracaoBateriaAproximada { get; private set; }
 
@@ -37,21 +37,21 @@ namespace QuickCompare.Domain.Entity
         [Required(ErrorMessage = "É obrigatório o preenchimento das informações do campo tela")]
         public TelaEntity Tela { get; set; }
 
-        protected AparelhoEntity(string marca, string modelo, int? espessura, int? peso, int? mah, int? duracaoBateriaAproximada, CapacidadeArmazenamento capacidadeArmazenamento, MemoriaRam memoriaRam, TipoAparelho tipoAparelho, TelaEntity tela)
+        protected AparelhoEntity(string marca, string modelo, decimal? espessura, decimal? peso, int? mah, int? duracaoBateriaAproximada, CapacidadeArmazenamento capacidadeArmazenamento, MemoriaRam memoriaRam, TipoAparelho tipoAparelho, TelaEntity tela)
         {
             ValidateDomain(marca, modelo, espessura, peso, mah, duracaoBateriaAproximada, capacidadeArmazenamento, memoriaRam, tipoAparelho, tela);
         }
 
-        public void ValidateDomain(string marca, string modelo, int? espessura, int? peso, int? mah, int? duracaoBateriaAproximada, CapacidadeArmazenamento capacidadeArmazenamento, MemoriaRam memoriaRam, TipoAparelho tipoAparelho, TelaEntity tela)
+        public void ValidateDomain(string marca, string modelo, decimal? espessura, decimal? peso, int? mah, int? duracaoBateriaAproximada, CapacidadeArmazenamento capacidadeArmazenamento, MemoriaRam memoriaRam, TipoAparelho tipoAparelho, TelaEntity tela)
         {
             DomainValidationExceptions.When(!System.Enum.IsDefined(typeof(CapacidadeArmazenamento), capacidadeArmazenamento), "Capacidade de armazenamento inválida. Valores aceitos (somente numero): " + string.Join(",", System.Enum.GetNames(typeof(CapacidadeArmazenamento))));
             DomainValidationExceptions.When(!System.Enum.IsDefined(typeof(MemoriaRam), memoriaRam), "Memória RAM inválida. Valores aceitos (somente numero): " + string.Join(",", System.Enum.GetNames(typeof(MemoriaRam))));
             DomainValidationExceptions.When(!System.Enum.IsDefined(typeof(TipoAparelho), tipoAparelho), "Tipo de aparelho inválido. Valores aceitos (somente numero): " + string.Join(",", System.Enum.GetNames(typeof(TipoAparelho))));
 
-            DomainValidationExceptions.When(Espessura < 0, "Não é valido valor negativo");
-            DomainValidationExceptions.When(Peso < 0, "Não é valido valor negativo");
-            DomainValidationExceptions.When(Mah < 0, "Não é valido valor negativo");
-            DomainValidationExceptions.When(DuracaoBateriaAproximada < 0, "Não é valido valor negativo");
+            DomainValidationExceptions.When(espessura <= 0, "Não é valido que o valor de espessura seja igual ou menor que zero");
+            DomainValidationExceptions.When(peso <= 0, "Não é valido que o valor do peso seja igual ou menor que zero");
+            DomainValidationExceptions.When(mah <= 0, "Não é valido que o valor de Mah seja igual ou menor que zero");
+            DomainValidationExceptions.When(duracaoBateriaAproximada <= 0, "Não é valido que o valor DuracaoBateriaAproximada seja igual ou menor que zero");
 
             Marca = marca;
             Modelo = modelo;
@@ -65,7 +65,7 @@ namespace QuickCompare.Domain.Entity
             Tela = tela;
         }
 
-        public void Update(string marca, string modelo, int? espessura, int? peso, int? mah, int? duracaoBateriaAproximada, CapacidadeArmazenamento capacidadeArmazenamento, MemoriaRam memoriaRam, TipoAparelho tipoAparelho, TelaEntity tela)
+        public void Update(string marca, string modelo, decimal? espessura, decimal? peso, int? mah, int? duracaoBateriaAproximada, CapacidadeArmazenamento capacidadeArmazenamento, MemoriaRam memoriaRam, TipoAparelho tipoAparelho, TelaEntity tela)
         {
             ValidateDomain(marca, modelo, espessura, peso, mah, duracaoBateriaAproximada, capacidadeArmazenamento, memoriaRam, tipoAparelho, tela);
         }

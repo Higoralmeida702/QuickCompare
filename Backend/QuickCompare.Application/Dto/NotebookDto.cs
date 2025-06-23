@@ -19,8 +19,8 @@ namespace QuickCompare.Application.Dto
         public FrequenciaMemoriaRam FrequenciaMemoriaRam { get; set; }
         public string Marca { get; set; }
         public string Modelo { get; set; }
-        public int? Espessura { get; set; }
-        public int? Peso { get; set; }
+        public decimal? Espessura { get; set; }
+        public decimal? Peso { get; set; }
         public int? Mah { get; set; }
         public int? DuracaoBateriaAproximada { get; set; }
         public CapacidadeArmazenamento CapacidadeArmazenamento { get; set; }

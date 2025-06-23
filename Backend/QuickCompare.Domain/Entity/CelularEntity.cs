@@ -8,14 +8,14 @@ namespace QuickCompare.Domain.Entity
         public bool ExpansaoMicroSd { get; private set; }
         public bool DualSim { get; private set; }
         public bool Has5G { get; private set; }
-        public int ComprimentoCelular { get; private set; }
-        public int LarguraCelular { get; private set; }
+        public decimal ComprimentoCelular { get; private set; }
+        public decimal LarguraCelular { get; private set; }
 
         public CelularEntity(
             string marca,
             string modelo,
-            int? espessura,
-            int? peso,
+            decimal? espessura,
+            decimal? peso,
             int? mah,
             int? duracaoBateriaAproximada,
             CapacidadeArmazenamento capacidadeArmazenamento,
@@ -25,8 +25,8 @@ namespace QuickCompare.Domain.Entity
             bool expansaoMicroSd,
             bool dualSim,
             bool has5G,
-            int comprimentoCelular,
-            int larguraCelular
+            decimal comprimentoCelular,
+            decimal larguraCelular
         ) : base(
             marca, modelo, espessura, peso, mah, duracaoBateriaAproximada,
             capacidadeArmazenamento, memoriaRam, tipoAparelho, tela)
@@ -35,19 +35,19 @@ namespace QuickCompare.Domain.Entity
         }
 
         public void Update(
-        string marca, string modelo, int? espessura, int? peso, int? mah,
+        string marca, string modelo, decimal? espessura, decimal? peso, int? mah,
         int? duracaoBateriaAproximada, CapacidadeArmazenamento capacidadeArmazenamento,
         MemoriaRam memoriaRam, TipoAparelho tipoAparelho, TelaEntity tela,
-        bool expansaoMicroSd, bool dualSim, bool has5G, int comprimentoCelular, int larguraCelular)
+        bool expansaoMicroSd, bool dualSim, bool has5G, decimal comprimentoCelular, decimal larguraCelular)
         {
             base.Update(marca, modelo, espessura, peso, mah, duracaoBateriaAproximada, capacidadeArmazenamento, memoriaRam, tipoAparelho, tela);
             ValidateDomain(expansaoMicroSd, dualSim, has5G, comprimentoCelular, larguraCelular);
         }
 
-        public void ValidateDomain(bool expansaoMicroSd, bool dualSim, bool has5G, int comprimentoCelular, int larguraCelular)
+        public void ValidateDomain(bool expansaoMicroSd, bool dualSim, bool has5G, decimal comprimentoCelular, decimal larguraCelular)
         {
-            DomainValidationExceptions.When(comprimentoCelular < 0, "Comprimento do celular não pode ser negativo.");
-            DomainValidationExceptions.When(larguraCelular < 0, "Largura do celular não pode ser negativa.");
+            DomainValidationExceptions.When(comprimentoCelular <= 0, "Comprimento do celular não pode ser igual ou menor que zero.");
+            DomainValidationExceptions.When(larguraCelular <= 0, "Largura do celular não pode ser igual ou menor que zero.");
 
             ExpansaoMicroSd = expansaoMicroSd;
             DualSim = dualSim;

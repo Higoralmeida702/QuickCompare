@@ -10,8 +10,8 @@ namespace QuickCompare.Application.Dto
 
         public string Modelo { get; set; }
 
-        public int? Espessura { get; set; }
-        public int? Peso { get; set; }
+        public decimal? Espessura { get; set; }
+        public decimal? Peso { get; set; }
         public int? Mah { get; set; }
 
         public int? DuracaoAproximadaBateria { get; set; }
@@ -30,7 +30,7 @@ namespace QuickCompare.Application.Dto
         public bool ExpansaoMicroSd { get; set; }
         public bool DualSim { get; set; }
         public bool Has5G { get; set; }
-        public int ComprimentoCelular { get; set; }
-        public int LarguraCelular { get; set; }
+        public decimal ComprimentoCelular { get; set; }
+        public decimal LarguraCelular { get; set; }
     }
 }
