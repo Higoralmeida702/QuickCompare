@@ -15,6 +15,7 @@ namespace QuickCompare.Infra.Data.Data
 
         public DbSet<CelularEntity> Celulares { get; set; }
         public DbSet<NotebookEntity> Notebooks { get; set; }
+        public DbSet<UsuarioEntity> Usuarios { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
