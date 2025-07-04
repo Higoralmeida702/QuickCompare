@@ -1,10 +1,13 @@
+using System.Text;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using QuickCompare.Application.Interfaces;
 using QuickCompare.Application.Services;
 using QuickCompare.Domain.Interfaces;
 using QuickCompare.Infra.Data.Data;
 using QuickCompare.Infra.Data.Repository;
+using QuickCompare.Infra.Data.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -24,6 +27,29 @@ builder.Services.AddScoped<INotebookRepository, NotebookRepository>();
 builder.Services.AddScoped<ICompararCelulares, CompararCelularService>();
 builder.Services.AddScoped<CompararCelularesUseCase>();
 
+builder.Services.AddScoped<IAuthService, AuthService>();
+builder.Services.AddScoped<ITokenService, TokenService>();
+builder.Services.AddScoped<IUsuarioRepository, UsuarioRepository>();
+
+builder.Services.AddAuthentication("Bearer")
+    .AddJwtBearer("Bearer", options =>
+    {
+        options.TokenValidationParameters = new TokenValidationParameters
+        {
+            ValidateIssuer = true,
+            ValidateAudience = true,
+            ValidateLifetime = true,
+            ValidateIssuerSigningKey = true,
+            ValidIssuer = builder.Configuration["Jwt:Issuer"],
+            ValidAudience = builder.Configuration["Jwt:Audience"],
+            IssuerSigningKey = new SymmetricSecurityKey(
+    Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"]!)
+)
+        };
+    });
+
+builder.Services.AddAuthorization();
+
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowAll", builder =>
@@ -35,14 +61,34 @@ builder.Services.AddCors(options =>
     });
 });
 
-
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(c =>
 {
-    c.SwaggerDoc("v1", new OpenApiInfo
+    c.SwaggerDoc("v1", new OpenApiInfo { Title = "QuickCompare API", Version = "v1" });
+
+    c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
     {
-        Title = "QuickCompare API",
-        Version = "v1"
+        Name = "Authorization",
+        Type = SecuritySchemeType.Http,
+        Scheme = "Bearer",
+        BearerFormat = "JWT",
+        In = ParameterLocation.Header,
+        Description = "Somente token: {seu_token_jwt}"
+    });
+
+    c.AddSecurityRequirement(new OpenApiSecurityRequirement
+    {
+        {
+            new OpenApiSecurityScheme
+            {
+                Reference = new OpenApiReference
+                {
+                    Type = ReferenceType.SecurityScheme,
+                    Id = "Bearer"
+                }
+            },
+            Array.Empty<string>()
+        }
     });
 });
 
@@ -56,7 +102,12 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+app.UseAuthentication();
 app.UseAuthorization();
-app.MapControllers();
+
 app.UseCors("AllowAll");
+
+app.MapControllers();
+
 app.Run();
