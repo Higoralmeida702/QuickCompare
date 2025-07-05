@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using QuickCompare.Application.Dto;
 using QuickCompare.Application.Interfaces;
@@ -17,6 +18,7 @@ namespace QuickCompare.Api.Controller
         }
 
         [HttpPost("AdicionarNotebook")]
+        [Authorize]
         public async Task<ActionResult<NotebookEntity>> AdicionarNotebook([FromBody] NotebookDto notebookDto)
         {
             if (!ModelState.IsValid)
@@ -48,6 +50,7 @@ namespace QuickCompare.Api.Controller
         }
 
         [HttpDelete("ExcluirNotebook/{id}")]
+        [Authorize]
         public async Task<IActionResult> ExcluirNotebook(int id)
         {
             try
@@ -68,6 +71,7 @@ namespace QuickCompare.Api.Controller
         }
 
         [HttpPut("AtualizarNotebook/{id}")]
+        [Authorize]
         public async Task<IActionResult> AtualizarNotebook(int id, [FromBody] NotebookDto notebookDto)
         {
             if (notebookDto == null)

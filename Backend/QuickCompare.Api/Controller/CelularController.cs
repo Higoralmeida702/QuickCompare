@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using QuickCompare.Application.Dto;
 using QuickCompare.Application.Interfaces;
@@ -22,6 +23,7 @@ namespace QuickCompare.Api.Controller
 
 
         [HttpPost("AdicionarCelular")]
+        [Authorize]
         public async Task<ActionResult<CelularEntity>> AdicionarCelular([FromBody] CelularDto celularDto)
         {
             if (!ModelState.IsValid)
@@ -49,6 +51,7 @@ namespace QuickCompare.Api.Controller
         }
 
         [HttpDelete("DeletarCelular/{id}")]
+        [Authorize]
         public async Task<IActionResult> DeletarCelular(int id)
         {
             try
@@ -77,6 +80,7 @@ namespace QuickCompare.Api.Controller
         }
 
         [HttpPut("AtualizarCelular/{id}")]
+        [Authorize]
         public async Task<IActionResult> AtualizarCelular(int id, [FromBody] CelularDto celularDto)
         {
             if (celularDto == null)
