@@ -2,12 +2,7 @@ using System.Text;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
-using QuickCompare.Application.Interfaces;
-using QuickCompare.Application.Services;
-using QuickCompare.Domain.Interfaces;
 using QuickCompare.Infra.Data.Data;
-using QuickCompare.Infra.Data.Repository;
-using QuickCompare.Infra.Data.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -16,20 +11,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddOpenApi();
 builder.Services.AddControllers();
 
-var serverVersion = new MySqlServerVersion(new Version(8, 0, 41));
-builder.Services.AddDbContext<ApplicationDbContext>(options =>
-    options.UseMySql(builder.Configuration.GetConnectionString("defaultConnection"), serverVersion));
-
-builder.Services.AddScoped<ICelularService, CelularService>();
-builder.Services.AddScoped<ICelularRepository, CelularRepository>();
-builder.Services.AddScoped<INotebookService, NotebookService>();
-builder.Services.AddScoped<INotebookRepository, NotebookRepository>();
-builder.Services.AddScoped<ICompararCelulares, CompararCelularService>();
-builder.Services.AddScoped<CompararCelularesUseCase>();
-
-builder.Services.AddScoped<IAuthService, AuthService>();
-builder.Services.AddScoped<ITokenService, TokenService>();
-builder.Services.AddScoped<IUsuarioRepository, UsuarioRepository>();
+builder.Services.AddInfrastructure(builder.Configuration);
 
 builder.Services.AddAuthentication("Bearer")
     .AddJwtBearer("Bearer", options =>
