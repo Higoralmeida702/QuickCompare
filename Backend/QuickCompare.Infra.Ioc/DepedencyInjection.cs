@@ -27,6 +27,9 @@ public static class DependencyInjection
         services.AddScoped<IAuthService, AuthService>();
         services.AddScoped<ITokenService, TokenService>();
         services.AddScoped<IUsuarioRepository, UsuarioRepository>();
+        services.AddScoped<ICompararDispositivosRepository, CompararDispositivosRepository>();
+        services.AddScoped<ICompararDispositivosService, CompararDispositivos>();
+
 
         return services;
     }
