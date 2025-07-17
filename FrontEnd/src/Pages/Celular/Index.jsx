@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import './Celular.css';
 import CelularApi from '../../Services/CelularApi';
+import axios from 'axios';
 
 const Celular = () => {
   const [products, setProducts] = useState([]);
@@ -9,10 +10,14 @@ const Celular = () => {
   const [selectedMemoryRam, setSelectedMemoryRam] = useState("Todas");
   const [selectedCapacidadeArmazenamento, setSelectedCapacidadeArmazenamento] = useState("Todas");
 
+  const [selecionadoA, setSelecionadoA] = useState(null);
+  const [selecionadoB, setSelecionadoB] = useState(null);
+  const [comparando, setComparando] = useState(false);
+  const [resultadoComparacao, setResultadoComparacao] = useState(null);
+
   useEffect(() => {
     async function LoadProducts() {
       const response = await CelularApi("/ObterTodosCelulares");
-      console.log(response.data);
       setProducts(response.data.dados);
     }
     LoadProducts();
@@ -20,25 +25,48 @@ const Celular = () => {
 
   const filteredProducts = products.filter(product => {
     const marcaOk = selectMarca === "Todas" || product.marca === selectMarca;
-    const polegadasOk =
-      selectedPolegadas === "Todas" ||
-      product.tela.polegadas.toString() === selectedPolegadas;
-
+    const polegadasOk = selectedPolegadas === "Todas" || product.tela.polegadas.toString() === selectedPolegadas;
     const memoriaRamFormatada = product.memoriaRam.replace("MemoriaRam", "");
-
     const memoriaOk = selectedMemoryRam === "Todas" || memoriaRamFormatada === selectedMemoryRam;
-
     const armazenamentoFormatado = product.capacidadeArmazenamento.replace("Armazenamento", "");
     const armazenamentoOk = selectedCapacidadeArmazenamento === "Todas" || armazenamentoFormatado === selectedCapacidadeArmazenamento;
     return marcaOk && polegadasOk && memoriaOk && armazenamentoOk;
-
   });
+
+  const selecionarParaComparar = (celular) => {
+    if (!selecionadoA) {
+      setSelecionadoA(celular);
+    } else if (!selecionadoB && celular.id !== selecionadoA.id) {
+      setSelecionadoB(celular);
+    } else if (celular.id === selecionadoA.id) {
+      setSelecionadoA(null);
+    } else if (celular.id === selecionadoB?.id) {
+      setSelecionadoB(null);
+    }
+    setResultadoComparacao(null);
+  };
+
+  const comparar = async () => {
+    if (!selecionadoA || !selecionadoB) return;
+    setComparando(true);
+    try {
+      const res = await axios.get(`http://localhost:5236/api/comparacao/${selecionadoA.id}/${selecionadoB.id}`);
+      setResultadoComparacao(res.data.resultado);
+    } catch (error) {
+      console.error('Erro na comparação', error);
+      setResultadoComparacao({ resultado: 'Erro na comparação' });
+    }
+    setComparando(false);
+  };
+
+  const fecharPopup = () => {
+    setResultadoComparacao(null);
+  };
 
   return (
     <div className='container-celular'>
       <aside className='aside-layout'>
         <h2>Filtros</h2>
-
         <label>
           Marca:
           <select value={selectMarca} onChange={(e) => setSelectMarca(e.target.value)}>
@@ -57,6 +85,7 @@ const Celular = () => {
             <option value="6.7">6.7"</option>
           </select>
         </label>
+
         <label>
           Memória RAM:
           <select value={selectedMemoryRam} onChange={(e) => setSelectedMemoryRam(e.target.value)}>
@@ -71,6 +100,7 @@ const Celular = () => {
             <option value="64GB">64 GB</option>
           </select>
         </label>
+
         <label>
           Armazenamento:
           <select value={selectedCapacidadeArmazenamento} onChange={(e) => setSelectedCapacidadeArmazenamento(e.target.value)}>
@@ -89,7 +119,11 @@ const Celular = () => {
       <section className='celular-section'>
         <div className='celular-lista'>
           {filteredProducts.map(product => (
-            <div key={product.id}>
+            <div
+              key={product.id}
+              onClick={() => selecionarParaComparar(product)}
+              className={selecionadoA?.id === product.id || selecionadoB?.id === product.id ? 'selecionado' : ''}
+            >
               <img className="celular-imagem" src="./Images/Iphone/Celular/Apple-iPhone-14-Pro-iPhone-14-Pro-Max-space-black-220907-geo-Photoroom.png" alt="" />
               <div className='celular-detalhes'>
                 <h1>{product.modelo}</h1>
@@ -116,6 +150,31 @@ const Celular = () => {
           ))}
         </div>
       </section>
+
+      {selecionadoA && selecionadoB && (
+        <button
+          onClick={comparar}
+          className="botao-comparar-flutuante"
+          disabled={comparando}
+        >
+          {comparando ? 'Comparando...' : 'Comparar'}
+        </button>
+      )}
+
+      {resultadoComparacao && (
+        <div className="popup-comparacao-backdrop" onClick={fecharPopup}>
+          <div className="popup-comparacao" onClick={e => e.stopPropagation()}>
+            <h2>Resultado da Comparação</h2>
+            <p>{resultadoComparacao.resultado}</p>
+            <ul>
+              {resultadoComparacao.pontos?.map((ponto, idx) => (
+                <li key={idx}>{ponto}</li>
+              ))}
+            </ul>
+            <button onClick={fecharPopup} className="popup-close-btn">Fechar</button>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

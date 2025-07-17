@@ -1,101 +1,178 @@
 .container-celular {
-    display: flex;
-    justify-content: center;
-    margin: 120px 0px;
-    font-family: 'SFProDisplay';
-    padding: 20px;
-    gap: 50px;
+  display: flex;
+  justify-content: center;
+  margin: 120px 0;
+  font-family: 'SFProDisplay', sans-serif;
+  padding: 20px;
+  gap: 50px;
 }
 
 .celular-section {
-    display: flex;
-    justify-content: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .celular-lista {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-    width: 822px;
-    height: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  width: 822px;
 }
 
 .celular-lista>div {
-    display: flex;
-    align-items: center;
-    background-color: #f0f0f0;
-    padding: 16px;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    gap: 16px;
+  display: flex;
+  align-items: center;
+  background-color: #f0f0f0;
+  padding: 16px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  gap: 16px;
+  transition: 0.3s ease;
+  border: 1px solid #ccc;
+  cursor: pointer;
 }
 
-.celular-lista>div h1,
-.celular-lista>div p {
-    margin: 4px 0;
+.selecionado {
+  background-color: #e6f0ff !important;
+  border: 2px solid #007bff !important;
+  box-shadow: 0 0 8px rgba(0, 123, 255, 0.4);
 }
 
 .celular-imagem {
-    width: 67px;
-    height: 137px;
-    flex-shrink: 0;
+  width: 67px;
+  height: 137px;
+  flex-shrink: 0;
+}
+
+.celular-detalhes h1,
+.celular-detalhes p {
+  margin: 4px 0;
 }
 
 .celular-especificacoes {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 60px;
-    margin-top: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 60px;
+  margin-top: 20px;
 }
 
 .especificacao-icone {
-    width: 40px;
-    height: 30px;
+  width: 40px;
+  height: 30px;
 }
 
 .especificacoes-item {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 120px;
-    text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 120px;
+  text-align: center;
 }
 
 .aside-layout {
-    width: 250px;
-    background-color: #f9f9f9;
-    border-radius: 8px;
-    padding: 20px;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-    align-self: flex-start;
+  width: 250px;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  padding: 20px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  align-self: flex-start;
 }
 
 .aside-layout h2 {
-    font-size: 20px;
-    margin-bottom: 16px;
-    color: #333;
+  font-size: 20px;
+  margin-bottom: 16px;
+  color: #333;
 }
 
 .aside-layout label {
-    display: flex;
-    flex-direction: column;
-    margin-bottom: 16px;
-    font-weight: 500;
-    color: #444;
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 16px;
+  font-weight: 500;
+  color: #444;
 }
 
 .aside-layout select {
-    margin-top: 6px;
-    padding: 8px;
-    font-size: 14px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    transition: border-color 0.3s ease;
-    background-color: #fff;
+  margin-top: 6px;
+  padding: 8px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  transition: border-color 0.3s ease;
+  background-color: #fff;
 }
 
 .aside-layout select:focus {
-    border-color: #007bff;
-    outline: none;
+  border-color: #007bff;
+  outline: none;
+}
+
+.botao-comparar-flutuante {
+  position: fixed;
+  width: 100px;
+  bottom: 20px;
+  right: 20px;
+  background-color: #007bff;
+  color: white;
+  padding: 10px 16px;
+  font-size: 14px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  z-index: 1000;
+  transition: background-color 0.3s ease;
+}
+
+.botao-comparar-flutuante:hover {
+  background-color: #0056b3;
+}
+
+.botao-comparar-flutuante:disabled {
+  background-color: #7ba7d9;
+  cursor: not-allowed;
+}
+
+.popup-comparacao-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2000;
+}
+
+.popup-comparacao {
+  background-color: white;
+  padding: 2rem;
+  border-radius: 12px;
+  width: 90%;
+  max-width: 600px;
+  box-shadow: 0 0 15px rgba(0, 123, 255, 0.3);
+}
+
+.popup-comparacao h2 {
+  margin-top: 0;
+  color: #0d47a1;
+}
+
+.popup-comparacao ul {
+  margin-top: 1rem;
+  padding-left: 1.2rem;
+  color: #0d47a1;
+}
+
+.popup-close-btn {
+  margin-top: 20px;
+  padding: 8px 16px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+  float: right;
 }
