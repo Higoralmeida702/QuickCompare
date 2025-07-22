@@ -1,20 +1,18 @@
 using Microsoft.AspNetCore.Mvc;
 using QuickCompare.Application.Interfaces;
 using QuickCompare.Domain.Entity;
-using System.Collections.Generic;
-using System.Threading.Tasks;
 
 namespace QuickCompare.Api.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    public class DispositivosController : ControllerBase
+    public class BuscarDispositivosController : ControllerBase
     {
-        private readonly ICompararDispositivosService _compararDispositivosService;
+        private readonly IBuscarDispositivosService _buscarDispositivosService;
 
-        public DispositivosController(ICompararDispositivosService compararDispositivosService)
+        public BuscarDispositivosController(IBuscarDispositivosService buscarDispositivosService)
         {
-            _compararDispositivosService = compararDispositivosService;
+            _buscarDispositivosService = buscarDispositivosService;
         }
 
         [HttpGet("celulares/buscar")]
@@ -23,7 +21,7 @@ namespace QuickCompare.Api.Controllers
             if (string.IsNullOrEmpty(termo))
                 return BadRequest("Termo de busca obrigatório.");
 
-            var celulares = await _compararDispositivosService.BuscarCelularPorMarcaOuModelo(termo);
+            var celulares = await _buscarDispositivosService.BuscarCelularPorMarcaOuModelo(termo);
             return Ok(celulares);
         }
 
@@ -33,7 +31,7 @@ namespace QuickCompare.Api.Controllers
             if (string.IsNullOrEmpty(termo))
                 return BadRequest("Termo de busca obrigatório.");
 
-            var notebooks = await _compararDispositivosService.BuscarNotebookPorMarcaOuModelo(termo);
+            var notebooks = await _buscarDispositivosService.BuscarNotebookPorMarcaOuModelo(termo);
             return Ok(notebooks);
         }
     }

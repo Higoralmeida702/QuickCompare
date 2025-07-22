@@ -1,8 +1,8 @@
 using QuickCompare.Domain.Entity;
 
-namespace QuickCompare.Domain.Interfaces
+namespace QuickCompare.Application.Interfaces
 {
-    public interface ICompararDispositivosRepository
+    public interface IBuscarDispositivosService
     {
         Task<List<CelularEntity>> BuscarCelularPorMarcaOuModelo(string termo);
         Task<List<NotebookEntity>> BuscarNotebookPorMarcaOuModelo(string termo);

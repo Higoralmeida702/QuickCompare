@@ -1,12 +1,8 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using QuickCompare.Domain.Entity;
 
-namespace QuickCompare.Application.Interfaces
+namespace QuickCompare.Domain.Interfaces
 {
-    public interface ICompararDispositivosService
+    public interface IBuscarDispositivosRepository
     {
         Task<List<CelularEntity>> BuscarCelularPorMarcaOuModelo(string termo);
         Task<List<NotebookEntity>> BuscarNotebookPorMarcaOuModelo(string termo);

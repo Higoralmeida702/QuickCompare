@@ -5,11 +5,11 @@ using QuickCompare.Infra.Data.Data;
 
 namespace QuickCompare.Infra.Data.Repository
 {
-    public class CompararDispositivosRepository : ICompararDispositivosRepository
+    public class BuscarDispositivosRepository : IBuscarDispositivosRepository
     {
         private readonly ApplicationDbContext _context;
 
-        public CompararDispositivosRepository(ApplicationDbContext context)
+        public BuscarDispositivosRepository(ApplicationDbContext context)
         {
             _context = context;
         }
