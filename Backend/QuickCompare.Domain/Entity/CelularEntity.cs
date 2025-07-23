@@ -1,3 +1,4 @@
+using System.ComponentModel.DataAnnotations.Schema;
 using QuickCompare.Domain.Enum;
 using QuickCompare.Domain.Validations;
 
@@ -8,7 +9,11 @@ namespace QuickCompare.Domain.Entity
         public bool ExpansaoMicroSd { get; private set; }
         public bool DualSim { get; private set; }
         public bool Has5G { get; private set; }
+
+        [Column(TypeName = "decimal(8,2)")]
         public decimal ComprimentoCelular { get; private set; }
+
+        [Column(TypeName = "decimal(8,2)")]
         public decimal LarguraCelular { get; private set; }
 
         public CelularEntity(

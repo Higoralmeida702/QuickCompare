@@ -1,4 +1,5 @@
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using QuickCompare.Domain.Enum;
 using QuickCompare.Domain.Validations;
 
@@ -7,12 +8,15 @@ namespace QuickCompare.Domain.Entity
     public class TelaEntity
     {
         [Required(ErrorMessage = "É obrigatório o preenchimento do campo informando Largura do dispositivo")]
+        [Column(TypeName = "decimal(8,2)")]
         public decimal Largura { get; private set; }
 
         [Required(ErrorMessage = "É obrigatório o preenchimento do campo informando Altura do dispositivo")]
+        [Column(TypeName = "decimal(8,2)")]
         public decimal Altura { get; private set; }
 
         [Required(ErrorMessage = "É obrigatório o preenchimento do campo informando Polegadas do dispositivo")]
+        [Column(TypeName = "decimal(8,2)")]
         public decimal Polegadas { get; private set; }
 
         public int? Nits { get; private set; }

@@ -1,5 +1,6 @@
 
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Text.Json.Serialization;
 using QuickCompare.Domain.Enum;
 using QuickCompare.Domain.Validations;
@@ -17,8 +18,12 @@ namespace QuickCompare.Domain.Entity
         [Required(ErrorMessage = "É obrigatório o preenchimento do campo modelo")]
         public string Modelo { get; private set; }
 
+        [Column(TypeName = "decimal(8,2)")]
         public decimal? Espessura { get; private set; }
+
+        [Column(TypeName = "decimal(8,2)")]
         public decimal? Peso { get; private set; }
+
         public int? Mah { get; private set; }
         public int? DuracaoBateriaAproximada { get; private set; }
 
