@@ -1,6 +1,7 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import './Notebook.css';
 import NotebookApi from '../../Services/NotebookApi';
+import axios from 'axios';
 
 const Notebook = () => {
   const [products, setProducts] = useState([]);
@@ -9,30 +10,58 @@ const Notebook = () => {
   const [selectedMemoryRam, setSelectedMemoryRam] = useState("Todas");
   const [selectedCapacidadeArmazenamento, setSelectedCapacidadeArmazenamento] = useState("Todas");
 
+  const [selecionadoA, setSelecionadoA] = useState(null);
+  const [selecionadoB, setSelecionadoB] = useState(null);
+  const [comparando, setComparando] = useState(false);
+  const [resultadoComparacao, setResultadoComparacao] = useState(null);
+
   useEffect(() => {
-    async function LoadProducts() {
+    async function loadNotebooks() {
       const response = await NotebookApi.get("/ObterTodosNotebooks");
-      console.log(response.data);
       setProducts(response.data.dados);
     }
-    LoadProducts();
+    loadNotebooks();
   }, []);
 
-  const filteredProducts = products.filter(product => {
-    const marcaOk = selectMarca === "Todas" || product.marca === selectMarca;
-    const polegadasOk =
-      selectedPolegadas === "Todas" ||
-      product.tela.polegadas.toString() === selectedPolegadas;
+  const formatarMemoria = mem => mem.replace("MemoriaRam", "");
+  const formatarArmazenamento = arm => arm.replace("Armazenamento", "");
 
-    const memoriaRamFormatada = product.memoriaRam.replace("MemoriaRam", "");
+  const filteredProducts = useMemo(() => {
+    return products.filter(prod => {
+      const marcaOk = selectMarca === "Todas" || prod.marca === selectMarca;
+      const polegadasOk = selectedPolegadas === "Todas" || prod.tela.polegadas.toString() === selectedPolegadas;
+      const memoriaOk = selectedMemoryRam === "Todas" || formatarMemoria(prod.memoriaRam) === selectedMemoryRam;
+      const armazenamentoOk = selectedCapacidadeArmazenamento === "Todas" || formatarArmazenamento(prod.capacidadeArmazenamento) === selectedCapacidadeArmazenamento;
+      return marcaOk && polegadasOk && memoriaOk && armazenamentoOk;
+    });
+  }, [products, selectMarca, selectedPolegadas, selectedMemoryRam, selectedCapacidadeArmazenamento]);
 
-    const memoriaOk = selectedMemoryRam === "Todas" || memoriaRamFormatada === selectedMemoryRam;
+  const selecionarParaComparar = (item) => {
+    if (!selecionadoA || item.id === selecionadoA.id) {
+      setSelecionadoA(selecionadoA?.id === item.id ? null : item);
+    } else if (!selecionadoB || item.id === selecionadoB.id) {
+      setSelecionadoB(selecionadoB?.id === item.id ? null : item);
+    }
+    setResultadoComparacao(null);
+  };
 
-    const armazenamentoFormatado = product.capacidadeArmazenamento.replace("Armazenamento", "");
-    const armazenamentoOk = selectedCapacidadeArmazenamento === "Todas" || armazenamentoFormatado === selectedCapacidadeArmazenamento;
-    return marcaOk && polegadasOk && memoriaOk && armazenamentoOk;
+  const comparar = async () => {
+    if (!selecionadoA || !selecionadoB) return;
+    setComparando(true);
+    try {
+      const res = await axios.get(
+        `http://localhost:5236/api/comparacao/notebook/${selecionadoA.id}/${selecionadoB.id}`
+      );
+      const data = res.data.resultado || res.data;
+      setResultadoComparacao(data);
+    } catch (error) {
+      console.error('Erro na comparação', error);
+      setResultadoComparacao({ Resultado: 'Erro na comparação', Pontos: [] });
+    }
+    setComparando(false);
+  };
 
-  });
+  const fecharPopup = () => setResultadoComparacao(null);
 
   return (
     <div className='container-notebook'>
@@ -41,7 +70,7 @@ const Notebook = () => {
 
         <label>
           Marca:
-          <select value={selectMarca} onChange={(e) => setSelectMarca(e.target.value)}>
+          <select value={selectMarca} onChange={e => setSelectMarca(e.target.value)}>
             <option value="Todas">Todas</option>
             <option value="Acer">Acer</option>
             <option value="Asus">Asus</option>
@@ -54,7 +83,7 @@ const Notebook = () => {
 
         <label>
           Polegadas:
-          <select value={selectedPolegadas} onChange={(e) => setSelectedPolegadas(e.target.value)}>
+          <select value={selectedPolegadas} onChange={e => setSelectedPolegadas(e.target.value)}>
             <option value="Todas">Todas</option>
             <option value="13">13"</option>
             <option value="14">14"</option>
@@ -62,53 +91,58 @@ const Notebook = () => {
             <option value="17">17"</option>
           </select>
         </label>
+
         <label>
           Memória RAM:
-          <select value={selectedMemoryRam} onChange={(e) => setSelectedMemoryRam(e.target.value)}>
+          <select value={selectedMemoryRam} onChange={e => setSelectedMemoryRam(e.target.value)}>
             <option value="Todas">Todas</option>
-            <option value="4GB">4 GB</option>
-            <option value="8GB">8 GB</option>
-            <option value="16GB">16 GB</option>
-            <option value="32GB">32 GB</option>
-            <option value="64GB">64 GB</option>
+            {["4GB", "8GB", "16GB", "32GB", "64GB"].map(mem => (
+              <option key={mem} value={mem}>{mem}</option>
+            ))}
           </select>
         </label>
+
         <label>
           Armazenamento:
-          <select value={selectedCapacidadeArmazenamento} onChange={(e) => setSelectedCapacidadeArmazenamento(e.target.value)}>
+          <select value={selectedCapacidadeArmazenamento} onChange={e => setSelectedCapacidadeArmazenamento(e.target.value)}>
             <option value="Todas">Todas</option>
-            <option value="256GB">256 GB</option>
-            <option value="480GB">480 GB</option>
-            <option value="512GB">512 GB</option>
-            <option value="1TB">1 TB</option>
-            <option value="2TB">2 TB</option>
+            {["256GB", "480GB", "512GB", "1TB", "2TB"].map(arm => (
+              <option key={arm} value={arm}>{arm}</option>
+            ))}
           </select>
         </label>
       </aside>
 
       <section className='notebook-section'>
         <div className='notebook-lista'>
-          {filteredProducts.map(product => (
-            <div key={product.id}>
-             {/* <img className="notebook-imagem" src="./Images/Notebook/NotebookPadrao.png" alt="" /> */}
+          {filteredProducts.map(prod => (
+            <div
+              key={prod.id}
+              onClick={() => selecionarParaComparar(prod)}
+              className={(selecionadoA?.id === prod.id || selecionadoB?.id === prod.id) ? 'selecionado' : ''}
+            >
               <div className='notebook-detalhes'>
-                <h1>{product.modelo} - {product.processador} </h1>
+                <h1>{prod.modelo} - {prod.processador}</h1>
                 <div className='notebook-especificacoes'>
                   <div className="especificacoes-item">
-                    <img className="especificacao-icone" src="./Images/Icons/processor-svgrepo-com.png" alt="" />
-                    <p>{product.placaDeVideo}</p>
+                    <img className="especificacao-icone" src="./Images/Icons/processor-svgrepo-com.svg" alt="Processador"/>
+                    <p>{prod.processador}</p>
                   </div>
                   <div className="especificacoes-item">
-                    <img className="especificacao-icone" src="./Images/Icons/ram-memory-svgrepo-com.svg" alt="" />
-                    <p>{product.memoriaRam.replace("MemoriaRam", "")} RAM</p>
+                    <img className="especificacao-icone" src="./Images/Icons/video-card-svgrepo-com.svg" alt="Vídeo"/>
+                    <p>{prod.placaDeVideo}</p>
                   </div>
                   <div className="especificacoes-item">
-                    <img className="especificacao-icone" src="./Images/Icons/ssd-round-svgrepo-com.svg" alt="" />
-                    <p>{product.capacidadeArmazenamento.replace("Armazenamento", "")} SSD</p>
+                    <img className="especificacao-icone" src="./Images/Icons/ram-memory-svgrepo-com.svg" alt="RAM"/>
+                    <p>{formatarMemoria(prod.memoriaRam)} RAM</p>
                   </div>
                   <div className="especificacoes-item">
-                    <img className="especificacao-icone" src="./Images/Icons/monitor-screen-rectangle-svgrepo-com.svg" alt="" />
-                    <p>{product.tela.polegadas} Pol</p>
+                    <img className="especificacao-icone" src="./Images/Icons/ssd-square-svgrepo-com.svg" alt="Armazenamento"/>
+                    <p>{formatarArmazenamento(prod.capacidadeArmazenamento)}</p>
+                  </div>
+                  <div className="especificacoes-item">
+                    <img className="especificacao-icone" src="./Images/Icons/monitor-screen-rectangle-svgrepo-com.svg" alt="Tela"/>
+                    <p>{prod.tela.polegadas} Pol</p>
                   </div>
                 </div>
               </div>
@@ -116,6 +150,31 @@ const Notebook = () => {
           ))}
         </div>
       </section>
+
+      {selecionadoA && selecionadoB && (
+        <button
+          onClick={comparar}
+          className="botao-comparar-flutuante"
+          disabled={comparando}
+        >
+          {comparando ? 'Comparando...' : 'Comparar'}
+        </button>
+      )}
+
+      {resultadoComparacao && (
+        <div className="popup-comparacao-backdrop" onClick={fecharPopup}>
+          <div className="popup-comparacao" onClick={e => e.stopPropagation()}>
+            <h2>Resultado da Comparação</h2>
+            <p>{resultadoComparacao.Resultado || resultadoComparacao.resultado}</p>
+            <ul>
+              {(resultadoComparacao.Pontos || resultadoComparacao.pontos || []).map((p, idx) => (
+                <li key={idx}>{p}</li>
+              ))}
+            </ul>
+            <button onClick={fecharPopup} className="popup-close-btn">Fechar</button>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
