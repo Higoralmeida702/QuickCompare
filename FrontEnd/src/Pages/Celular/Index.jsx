@@ -50,7 +50,7 @@ const Celular = () => {
     if (!selecionadoA || !selecionadoB) return;
     setComparando(true);
     try {
-      const res = await axios.get(`http://localhost:5236/api/comparacao/${selecionadoA.id}/${selecionadoB.id}`);
+      const res = await axios.get(`http://localhost:5236/api/comparacao/celular/${selecionadoA.id}/${selecionadoB.id}`);
       setResultadoComparacao(res.data.resultado);
     } catch (error) {
       console.error('Erro na comparação', error);
@@ -124,7 +124,6 @@ const Celular = () => {
               onClick={() => selecionarParaComparar(product)}
               className={selecionadoA?.id === product.id || selecionadoB?.id === product.id ? 'selecionado' : ''}
             >
-              <img className="celular-imagem" src="./Images/Iphone/Celular/Apple-iPhone-14-Pro-iPhone-14-Pro-Max-space-black-220907-geo-Photoroom.png" alt="" />
               <div className='celular-detalhes'>
                 <h1>{product.modelo}</h1>
                 <div className='celular-especificacoes'>

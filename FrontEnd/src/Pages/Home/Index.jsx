@@ -8,23 +8,23 @@ const Home = () => {
             </div>
             <div className="card-grid primeiro-card">
                 <div className="card-item">
-                    <img src="./Images/Icons/document-add-svgrepo-com.png" alt="Especificações completas" className="icon" />
+                    <img src="./Images/Icons/document-add-svgrepo-com.svg" alt="Especificações completas" className="icon" />
                     <p className='textoIcone'>Especificações completas</p>
                 </div>
                 <div className="card-item">
-                    <img src="./Images/Icons/data-line-svgrepo-com.png" alt="Dados que importam" className="icon" />
+                    <img src="./Images/Icons/data-line-svgrepo-com.svg" alt="Dados que importam" className="icon" />
                     <p className='textoIcone'>Dados que importam</p>
                 </div>
                 <div className="card-item">
-                    <img src="./Images/Icons/compare-svgrepo-com.png" alt="Compare item por item" className="icon" />
+                    <img src="./Images/Icons/compare-svgrepo-com.svg" alt="Compare item por item" className="icon" />
                     <p className='textoIcone'>Compare item por item</p>
                 </div>
                 <div className="card-item">
-                    <img src="./Images/Icons/scissor-svgrepo-com.png" alt="Ficha técnica sem enrolação" className="icon" />
+                    <img src="./Images/Icons/scissor-svgrepo-com.svg" alt="Ficha técnica sem enrolação" className="icon" />
                     <p className='textoIcone'>Ficha técnica sem enrolação</p>
                 </div>
                 <div className="card-item">
-                    <img src="./Images/Icons/processor-svgrepo-com.png" alt="Do processador à bateria" className="icon" />
+                    <img src="./Images/Icons/processor-svgrepo-com.svg" alt="Do processador à bateria" className="icon" />
                     <p className='textoIcone'> Do processador à bateria</p>
                 </div>
             </div>
