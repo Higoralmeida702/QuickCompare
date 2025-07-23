@@ -25,7 +25,7 @@ const Celular = () => {
 
   const filteredProducts = products.filter(product => {
     const marcaOk = selectMarca === "Todas" || product.marca === selectMarca;
-    const polegadasOk = selectedPolegadas === "Todas" || product.tela.polegadas.toString() === selectedPolegadas;
+    const polegadasOk = selectedPolegadas === "Todas" || product.tela.polegadas.toFixed(1) === parseFloat(selectedPolegadas).toFixed(1);
     const memoriaRamFormatada = product.memoriaRam.replace("MemoriaRam", "");
     const memoriaOk = selectedMemoryRam === "Todas" || memoriaRamFormatada === selectedMemoryRam;
     const armazenamentoFormatado = product.capacidadeArmazenamento.replace("Armazenamento", "");
@@ -72,6 +72,15 @@ const Celular = () => {
           <select value={selectMarca} onChange={(e) => setSelectMarca(e.target.value)}>
             <option value="Todas">Todas</option>
             <option value="Apple">Apple</option>
+            <option value="Motorola">Motorola</option>
+            <option value="Xiaomi">Xiaomi</option>
+            <option value="Realme">Realme</option>
+            <option value="Asus">Asus</option>
+            <option value="Infinix">Infinix</option>
+            <option value="Huawei">Huawei</option>
+            <option value="OnePlus">OnePlus</option>
+            <option value="Lenovo">Lenovo</option>
+            <option value="Nokia">Nokia</option>
             <option value="Samsung">Samsung</option>
           </select>
         </label>
@@ -80,9 +89,16 @@ const Celular = () => {
           Polegadas:
           <select value={selectedPolegadas} onChange={(e) => setSelectedPolegadas(e.target.value)}>
             <option value="Todas">Todas</option>
-            <option value="6">6"</option>
-            <option value="6.5">6.5"</option>
-            <option value="6.7">6.7"</option>
+            <option value="6.1">6.1"</option>
+            <option value="6.2">6.2"</option>
+            <option value="6.3">6.3"</option>
+            <option value="6.4">6.4"</option>
+            <option value="6.6">6.6"</option>
+            <option value="6.67">6.67"</option>
+            <option value="6.74">6.74"</option>
+            <option value="6.8">6.8"</option>
+            <option value="6.9">6.9"</option>
+            <option value="7">7"</option>
           </select>
         </label>
 
@@ -125,7 +141,10 @@ const Celular = () => {
               className={selecionadoA?.id === product.id || selecionadoB?.id === product.id ? 'selecionado' : ''}
             >
               <div className='celular-detalhes'>
-                <h1>{product.modelo}</h1>
+                <h1>
+                  <span style={{ color: '#007BFF' }}>{product.marca}</span><br />
+                  {product.modelo}
+                </h1>
                 <div className='celular-especificacoes'>
                   <div className="especificacoes-item">
                     <img className="especificacao-icone" src="./Images/Icons/hour-svgrepo-com.svg" alt="" />

@@ -78,6 +78,8 @@ const Notebook = () => {
             <option value="HP">HP</option>
             <option value="Lenovo">Lenovo</option>
             <option value="Apple">Apple</option>
+            <option value="Samsung">Samsung</option>
+            <option value="Positivo">Positivo</option>
           </select>
         </label>
 
@@ -122,26 +124,30 @@ const Notebook = () => {
               className={(selecionadoA?.id === prod.id || selecionadoB?.id === prod.id) ? 'selecionado' : ''}
             >
               <div className='notebook-detalhes'>
-                <h1>{prod.modelo} - {prod.processador}</h1>
+                <h1>
+                  <span style={{ color: '#007BFF' }}>{prod.marca}</span><br />
+                  {prod.modelo}
+                </h1>
+
                 <div className='notebook-especificacoes'>
                   <div className="especificacoes-item">
-                    <img className="especificacao-icone" src="./Images/Icons/processor-svgrepo-com.svg" alt="Processador"/>
+                    <img className="especificacao-icone" src="./Images/Icons/processor-svgrepo-com.svg" alt="Processador" />
                     <p>{prod.processador}</p>
                   </div>
                   <div className="especificacoes-item">
-                    <img className="especificacao-icone" src="./Images/Icons/video-card-svgrepo-com.svg" alt="Vídeo"/>
+                    <img className="especificacao-icone" src="./Images/Icons/video-card-svgrepo-com.svg" alt="Vídeo" />
                     <p>{prod.placaDeVideo}</p>
                   </div>
                   <div className="especificacoes-item">
-                    <img className="especificacao-icone" src="./Images/Icons/ram-memory-svgrepo-com.svg" alt="RAM"/>
+                    <img className="especificacao-icone" src="./Images/Icons/ram-memory-svgrepo-com.svg" alt="RAM" />
                     <p>{formatarMemoria(prod.memoriaRam)} RAM</p>
                   </div>
                   <div className="especificacoes-item">
-                    <img className="especificacao-icone" src="./Images/Icons/ssd-square-svgrepo-com.svg" alt="Armazenamento"/>
+                    <img className="especificacao-icone" src="./Images/Icons/ssd-square-svgrepo-com.svg" alt="Armazenamento" />
                     <p>{formatarArmazenamento(prod.capacidadeArmazenamento)}</p>
                   </div>
                   <div className="especificacoes-item">
-                    <img className="especificacao-icone" src="./Images/Icons/monitor-screen-rectangle-svgrepo-com.svg" alt="Tela"/>
+                    <img className="especificacao-icone" src="./Images/Icons/monitor-screen-rectangle-svgrepo-com.svg" alt="Tela" />
                     <p>{prod.tela.polegadas} Pol</p>
                   </div>
                 </div>
